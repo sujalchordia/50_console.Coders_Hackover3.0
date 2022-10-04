@@ -15,9 +15,23 @@ app.set('views',path.join(__dirname,'views'))
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
-app.get("/:type/login",async(req,res)=>{
-    const types=req.params.type;
-    res.render("login",{types});
+app.get("/login",async(req,res)=>{
+    res.render("login");
+})
+app.post("/login",async(req,res)=>{
+    const{user_name}=req.body;
+    const username=user_name;
+    console.log(username);
+    const users=await Users.find({user_name:username})
+    console.log(users);
+    res.redirect(`${users[0]._type}/home`);
+})
+app.get("/user/home",(req,res)=>{
+    res.render("user/home");
+})
+app.get("user/home")
+app.get("/error",(req,res)=>{
+    res.send("error");
 })
 app.listen(3000,()=>{
     console.log("i am listening");
