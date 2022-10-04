@@ -3,6 +3,7 @@ const path= require("path");
 const mongoose=require("mongoose");
 
 const Users= require("./Schemas/users");
+const Events= require("./Schemas/events_schema");
 const methodOverride = require('method-override');
 const ejsMate= require('ejs-mate');
 
@@ -23,15 +24,45 @@ app.post("/login",async(req,res)=>{
     const username=user_name;
     console.log(username);
     const users=await Users.find({user_name:username})
-    console.log(users);
-    res.redirect(`${users[0]._type}/home`);
+    const AllEvents=await Events.find();
+    res.render(`${users[0]._type}/home`,{users,AllEvents});
 })
-app.get("/user/home",(req,res)=>{
-    res.render("user/home");
+app.get("/user/home/:id",async(req,res)=>{
+    const{id}=req.params;
+    const users=await Users.find({_id:id})
+    const AllEvents=await Events.find();
+    res.render("user/home",{users, AllEvents});
 })
-app.get("user/home")
-app.get("/error",(req,res)=>{
-    res.send("error");
+app.get("/user/b/:id",async(req,res)=>{
+    const{id}=req.params;
+    const users=await Users.find({_id:id})
+    const eventids=users[0].bookedevents;
+    let Bookedevents=[];
+    for(let i=0;i<eventids.length;i++){
+        const temp=await Events.findById(eventids[i]);
+        Bookedevents.push(temp);
+    }
+    res.render("user/booked",{users,Bookedevents});
+})
+
+app.get("/user/gateway/:id/:eventid",async(req,res)=>{
+    const{id,eventid}=req.params;
+    const users=await Users.find({_id:id})
+    res.render("user/gateway",{users,eventid});
+})
+app.get("/user/addevent/:id/:eventid",async(req,res)=>{
+    const{id,eventid}=req.params;
+    const users=await Users.find({_id:id})
+    users[0].bookedevents.push(eventid);
+    const eventids=users[0].bookedevents;
+    await Users.findByIdAndUpdate(id,{bookedevents:eventids});
+    let Bookedevents=[];
+    for(let i=0;i<eventids.length;i++){
+        const temp=await Events.findById(eventids[i]);
+        Bookedevents.push(temp);
+    }
+    console.log(Bookedevents);
+    res.render("user/booked",{users,Bookedevents});
 })
 app.listen(3000,()=>{
     console.log("i am listening");

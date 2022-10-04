@@ -9,36 +9,42 @@ const User_db= async()=>{
         user_name: "sujal.chordia",
         password:"sujal",
         _type:"user",
-    })
+        bookedevents:[]
+        })
     await users.save();
     const users_2= new UserSchema({
         user_name: "aryaman.chokhani",
         password:"aryaman",
         _type:"user",
+        bookedevents:[]
     })
     await users_2.save();
     const users_3= new UserSchema({
         user_name: "darshit.bhagtani",
         password:"darshit",
         _type:"user",
+        bookedevents:[]
     })
     await users_3.save();
     const Organizer= new UserSchema({
         user_name: "asmi.bhanushali",
         password:"asmi",
-        _type:"organizer"
+        _type:"organizer",
+        bookedevents:[]
     })
     await Organizer.save();
     const Organizer_2= new UserSchema({
         user_name: "jaydeep.jethwa",
         password:"jaydeep",
-        _type:"organizer"
+        _type:"organizer",
+        bookedevents:[]
     })
     await Organizer_2.save();
     const Organizer_3= new UserSchema({
         user_name: "anusha.maniar",
         password:"anusha",
-        _type:"organizer"
+        _type:"organizer",
+        bookedevents:[]
     })
     await Organizer_3.save();
 }

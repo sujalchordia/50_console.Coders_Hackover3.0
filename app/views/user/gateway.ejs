@@ -56,31 +56,11 @@
     </nav>
 </div>
 
-    <h1>Latest Events</h1>
+    <h1>Payment Gateway</h1>
+    <button type="button" class="btn btn-dark">
+        <a style="text-decoration: none; color: white;" href=<%=`/user/addevent/${users[0]._id}/${eventid}`%>>Pay Now</a>
+    </button>
     
-    <div class="events">
-    <div class="card-deck">
-
-        <!-- Event 1 -->
-        <%for(let i=0;i<AllEvents.length;i++){%>
-        <div class="card">
-        <img src="<%=AllEvents[i].image%>" class="card-img-top" alt="Anuv Jain">
-        <div class="card-body">
-            <h5 class="card-title"><%=AllEvents[i].title%></h5>
-            <p class="card-text"><%=AllEvents[i].date%></p>
-            <p class="card-text"><%=AllEvents[i].time%></p>
-            <p class="card-text"><%=AllEvents[i].location%></p>
-            <p class="card-text"><%=AllEvents[i].price%></p>
-            <p class="card-text"><%=AllEvents[i].organizer_id%></p>
-            <p class="card-text"><%=AllEvents[i].description%></p>
-            <button type="button" class="btn btn-dark">
-            <a style="text-decoration: none; color: white;" href=<%=`/user/gateway/${users[0]._id}/${AllEvents[i]._id}`%>>Book Ticket</a>
-            </button>
-        </div>
-    </div>
-    <%}%>
-    </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

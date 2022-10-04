@@ -9,5 +9,7 @@ const EventSchema= new Schema({
     description: String,
     location: String,
     organizer_id: String,
+    time:String,
+    date:String,
 })
 module.exports= mongoose.model("EventSchema", EventSchema)

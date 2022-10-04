@@ -56,26 +56,23 @@
     </nav>
 </div>
 
-    <h1>Latest Events</h1>
+    <h1>Booked Events</h1>
     
     <div class="events">
     <div class="card-deck">
 
         <!-- Event 1 -->
-        <%for(let i=0;i<AllEvents.length;i++){%>
+        <%for(let i=0;i<Bookedevents.length;i++){%>
         <div class="card">
-        <img src="<%=AllEvents[i].image%>" class="card-img-top" alt="Anuv Jain">
+        <img src="<%=Bookedevents[i].image%>" class="card-img-top" alt="Anuv Jain">
         <div class="card-body">
-            <h5 class="card-title"><%=AllEvents[i].title%></h5>
-            <p class="card-text"><%=AllEvents[i].date%></p>
-            <p class="card-text"><%=AllEvents[i].time%></p>
-            <p class="card-text"><%=AllEvents[i].location%></p>
-            <p class="card-text"><%=AllEvents[i].price%></p>
-            <p class="card-text"><%=AllEvents[i].organizer_id%></p>
-            <p class="card-text"><%=AllEvents[i].description%></p>
-            <button type="button" class="btn btn-dark">
-            <a style="text-decoration: none; color: white;" href=<%=`/user/gateway/${users[0]._id}/${AllEvents[i]._id}`%>>Book Ticket</a>
-            </button>
+            <h5 class="card-title"><%=Bookedevents[i].title%></h5>
+            <p class="card-text"><%=Bookedevents[i].date%></p>
+            <p class="card-text"><%=Bookedevents[i].time%></p>
+            <p class="card-text"><%=Bookedevents[i].location%></p>
+            <p class="card-text"><%=Bookedevents[i].price%></p>
+            <p class="card-text"><%=Bookedevents[i].organizer_id%></p>
+            <p class="card-text"><%=Bookedevents[i].description%></p>
         </div>
     </div>
     <%}%>
