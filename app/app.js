@@ -64,6 +64,66 @@ app.get("/user/addevent/:id/:eventid",async(req,res)=>{
     console.log(Bookedevents);
     res.render("user/booked",{users,Bookedevents});
 })
+
+// ORGANIZERS'ROUTES
+app.get("/organizer/home/:id",async(req,res)=>{
+    const{id}=req.params;
+    const users=await Users.find({_id:id})
+    const AllEvents=await Events.find();
+    res.render("organizer/home",{users, AllEvents});
+})
+
+app.get("/organizer/create/:id",async (req,res)=>{
+    const{id}=req.params;
+    const temp=await Users.findById(id);
+    console.log(temp);
+    res.render("organizer/create",{temp});
+})
+app.post("/organizer/create/:id",async (req,res)=>{
+    const{id}=req.params;
+    req.body.organizer_id=id;
+    const newevent= new Events(req.body);
+    await newevent.save();
+    const users=await Users.find({_id:id})
+    users[0].createdevents.push(newevent._id);
+    const eventids=users[0].createdevents;
+    await Users.findByIdAndUpdate(id,{createdevents:eventids});
+    // redirect to created events page
+    const CreatedEvents=[];
+    const temp= users[0].createdevents;
+    for(let i=0;i<temp.length;i++){
+        const events=await Events.findById(temp[i]);
+        CreatedEvents.push(events);
+    }
+    res.render("organizer/views",{users,CreatedEvents});
+})
+//connecting views of user
+app.get("/organizer/view/:id",async (req,res)=>{
+    const{id}=req.params;
+    const users=await Users.find({_id:id});
+    const temp= users[0].createdevents;
+    const CreatedEvents=[];
+    for(let i=0;i<temp.length;i++){
+        const events=await Events.findById(temp[i]);
+        CreatedEvents.push(events);
+    }
+    res.render("organizer/views",{users,CreatedEvents});
+})
+
+//adding delete feature
+app.delete("/users/:id",async(req,res)=>{
+    const {id}= req.params;
+    await Events.findByIdAndDelete(id);
+    
+    const users=await Users.find({_id:id});
+    const temp= users[0].createdevents;
+    const CreatedEvents=[];
+    for(let i=0;i<temp.length;i++){
+        const events=await Events.findById(temp[i]);
+        CreatedEvents.push(events);
+    }
+    res.render("organizer/views",{users,CreatedEvents});
+})
 app.listen(3000,()=>{
     console.log("i am listening");
 })
