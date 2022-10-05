@@ -27,8 +27,8 @@ const Event_db= async()=>{
         description:"This stand-up solo show is an amalgamation of observational humor & personal anecdotes topped with energetic actouts on stage. Also known as 'Mr Versatile', Aakash is known for his sudden jokes, character comedy, quirkyobservations and a stellar performance. ",
         location: "The Laughter Club,Bandra",
         organizer_id:"633c4085e360ba1051a5d461",
-       Time:"8 pm",
-       Date:"15th November,Friday"
+       time:"8 pm",
+       date:"15th November,Friday"
         })
         users_1.save();
         
@@ -39,8 +39,8 @@ const Event_db= async()=>{
         description:"Hackathon is a Sprint like design event where in computer programmers and others involved in software development, including graphic designers, interface designers, product managers, domain exports and others collaborate intensively on software projects  ",
         location: "Conducted online ",
         organizer_id:"633c4085e360ba1051a5d463",
-       Time:"4 pm",
-       Date:"29th November to 30th November"
+       time:"4 pm",
+       date:"29th November to 30th November"
         })
         users_2.save();
        }
