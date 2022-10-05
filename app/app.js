@@ -111,10 +111,29 @@ app.get("/organizer/view/:id",async (req,res)=>{
 })
 
 //adding delete feature
-app.delete("/users/:id",async(req,res)=>{
-    const {id}= req.params;
-    await Events.findByIdAndDelete(id);
+// app.delete("/organizer/:id/:eventid",async(req,res)=>{
+//     const {id}= req.params;
+//     const {eventid}= req.params;
+//     await Events.findByIdAndDelete(eventid);
     
+//     const users=await Users.find({_id:id})
+//     const AllEvents=await Events.find();
+//     res.render("organizer/home",{users, AllEvents});
+// })
+
+//adding edit features
+
+app.get("/organizer/:id/:eventid",async(req,res)=>{
+    const {id,eventid}= req.params;
+    const events=await Events.find({_id:eventid})
+    const users=await Users.find({_id:id})
+    res.render("organizer/edit.ejs",{users,events});
+})
+app.put("/organizer/:id/:eventid",async(req,res)=>{
+    const {id,eventid}= req.params;
+    const updated= await Events.findByIdAndUpdate(eventid,req.body);
+    
+
     const users=await Users.find({_id:id});
     const temp= users[0].createdevents;
     const CreatedEvents=[];

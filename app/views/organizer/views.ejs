@@ -75,9 +75,11 @@
             <p class="card-text">Location:<%=CreatedEvents[i].location%></p>
             <p class="card-text">Price: <%=CreatedEvents[i].price%></p>
             <p class="card-text">Description<%=CreatedEvents[i].description%></p>
-            <!-- <button type="button" class="btn btn-dark">
-            <a style="text-decoration: none; color: white;" href=<%=`/user/gateway/${users[0]._id}/${CreatedEvents[i]._id}`%>>Book Ticket</a>
-            </button> -->
+            
+                
+            <button type="button" class="btn btn-dark">
+                <a style="text-decoration: none; color: white;" href=<%=`/organizer/${users[0]._id}/${CreatedEvents[i]._id}`%>>UPDATE</a>
+            </button>
         </div>
     </div>
     <%}%>
