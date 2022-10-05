@@ -24,8 +24,13 @@ app.post("/login",async(req,res)=>{
     const username=user_name;
     console.log(username);
     const users=await Users.find({user_name:username})
+    if(users[0].isban===1){
+        console.log(users[0].isban)
+        res.render("organizer/error")
+    }
     const AllEvents=await Events.find();
-    res.render(`${users[0]._type}/home`,{users,AllEvents});
+    const AllUsers=await Users.find()
+    res.render(`${users[0]._type}/home`,{users,AllUsers,AllEvents});
 })
 app.get("/user/home/:id",async(req,res)=>{
     const{id}=req.params;
@@ -110,6 +115,8 @@ app.get("/organizer/view/:id",async (req,res)=>{
     res.render("organizer/views",{users,CreatedEvents});
 })
 
+
+
 //adding delete feature
 // app.delete("/organizer/:id/:eventid",async(req,res)=>{
 //     const {id}= req.params;
@@ -143,6 +150,44 @@ app.put("/organizer/:id/:eventid",async(req,res)=>{
     }
     res.render("organizer/views",{users,CreatedEvents});
 })
+
+
+//admin routes
+app.post("/login",async(req,res)=>{
+    const{user_name}=req.body;
+    const username=user_name;
+    const users=await Users.find({user_name:username})
+    const AllEvents=await Events.find();
+    res.render(`${users[0]._type}/home`,{users,AllEvents});
+})
+
+app.get("/admin/Org",async(req,res)=>{
+    const users=await Users.find()
+    const AllEvents=await Events.find();
+    console.log(AllEvents);
+    res.render(`admin/Org`,{users,AllEvents});
+})
+app.get("/admin/Sales",async(req,res)=>{
+    const users=await Users.find()
+    const AllEvents=await Events.find();
+    console.log(AllEvents);
+    res.render(`admin/Sales`,{users,AllEvents});
+})
+app.get("/admin/tempban/:id",async(req,res)=>{
+    const users=await Users.find()
+    const AllEvents=await Events.find();
+    const{id}=req.params;
+    await Users.findByIdAndUpdate(id,{isban:1});
+    res.render(`admin/Org`,{users,AllEvents});
+})
+app.get("/admin/verification",async(req,res)=>{
+    const users=await Users.find()
+    const AllEvents=await Events.find();
+    const{id}=req.params;
+    await Users.findByIdAndUpdate(id,{isban:1});
+    res.render(`admin/verification`,{users,AllEvents});
+})
+
 app.listen(3000,()=>{
     console.log("i am listening");
 })

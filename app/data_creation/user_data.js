@@ -53,6 +53,14 @@ const User_db= async()=>{
         createdevents:[]
     })
     await Organizer_3.save();
+    const Organizer_4= new UserSchema({
+        user_name: "admin",
+        password:"admin123",
+        _type:"admin",
+        bookedevents:[],
+        createdevents:[]
+    })
+    await Organizer_4.save();
 }
 
 User_db();
